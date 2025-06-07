@@ -1,7 +1,7 @@
 # 🌿 Organic & Ayurvedic E-commerce Website
 
 This is a front-end web project showcasing an online store for organic and ayurvedic personal care products. 
-It was built using **HTML** and **CSS** as part of a web development internship at Codetantra.
+It was built using **HTML** ,**CSS** and **Java Script** as part of a web development internship at Codetantra.
 
 ## 💡 Features
 
