@@ -19,10 +19,6 @@ It was built using **HTML** and **CSS** as part of a web development internship 
 - GitHub Pages
 - Codetantra Platform
 
-## 🔗 Live Demo
-
-👉 [Visit Website](https://pallavibollojula.github.io)
-
 ## 📁 Folder Structure
 
 ```
@@ -49,9 +45,7 @@ It was built using **HTML** and **CSS** as part of a web development internship 
 
 If you want to connect or suggest improvements, feel free to reach out:
 
-- Email: your.email@example.com
-- Instagram: [@yourhandle](https://instagram.com/yourhandle)
-
+- Email: bollojulapallavi@gmail.com
 ---
 
 Made with ❤️ by Pallavi Bollojula
