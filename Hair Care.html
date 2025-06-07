@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fragrance</title>
+    <link rel="stylesheet" href="Hair Care.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const heartIcons = document.querySelectorAll('.fa-heart-o, .fa-heart');
+  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  
+  heartIcons.forEach(icon => {
+    const productElement = icon.closest('.i');
+    const productName = productElement.querySelector('.p-name').innerText;
+
+    const isLiked = wishlist.some(item => item.name === productName);
+    if (isLiked) {
+      icon.classList.remove('fa-heart-o');
+      icon.classList.add('fa-heart', 'liked');
+    } else {
+      icon.classList.remove('fa-heart', 'liked');
+      icon.classList.add('fa-heart-o');
+    }
+  });
+
+  heartIcons.forEach(icon => {
+    icon.addEventListener('click', function () {
+      const productElement = this.closest('.i');
+      const productName = productElement.querySelector('.p-name').innerText;
+      const productType = productElement.querySelector('.p-type').innerText;
+      const productSize = productElement.querySelector('.p-size').innerText;
+      const productCost = productElement.querySelector('.p-cost').innerText;
+      const productImage = productElement.querySelector('img').src;
+
+      const isLiked = this.classList.contains('liked');
+
+      if (!isLiked) {
+        wishlist.push({
+          name: productName,
+          type: productType,
+          size: productSize,
+          cost: productCost,
+          image: productImage
+        });
+        this.classList.remove('fa-heart-o');
+        this.classList.add('fa-heart', 'liked');
+      } else {
+        wishlist = wishlist.filter(item => item.name !== productName);
+        this.classList.remove('fa-heart', 'liked');
+        this.classList.add('fa-heart-o');
+      }
+
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    });
+  });
+
+  let bagItems = JSON.parse(localStorage.getItem('bag')) || [];
+  const bagButtons = document.querySelectorAll('.add-to-bag');
+
+  bagButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const productElement = this.closest('.i');
+      const productName = productElement.querySelector('.p-name').innerText;
+      const productType = productElement.querySelector('.p-type')?.innerText || '';
+      const productSize = productElement.querySelector('.p-size')?.innerText || '';
+      const productCost = productElement.querySelector('.p-cost').innerText;
+      const productImage = productElement.querySelector('img').src;
+
+      const alreadyInBag = bagItems.some(item => item.name === productName);
+      if (!alreadyInBag) {
+        bagItems.push({
+          name: productName,
+          type: productType,
+          size: productSize,
+          cost: productCost,
+          image: productImage
+        });
+        localStorage.setItem('bag', JSON.stringify(bagItems));
+        alert(`${productName} added to bag!`);
+      } else {
+        alert(`${productName} is already in your bag.`);
+      }
+    });
+  });
+});
+</script>
+</head>
+<body>
+    <div class="main">
+        <div class="top">
+            <p>Hair Care</p>
+        </div>
+        <div class="discover">
+            <p>Discover Our Hair Care Range</p>
+            <div class="images">
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/hair_care/Cleanser.jpg" alt="">
+                    <a href="">HAIR CLEANSERS</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/hair_care/Conditioner.jpg" alt="">
+                    <a href="">HAIR CONDITIONERS</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/hair_care/Oil.jpg" alt="">
+                    <a href="">HAIR MASSAGE OILS</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/hair_care/Serum.jpg" alt="">
+                    <a href="">HAIR SERUM</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/hair_care/Masque.jpg" alt="">
+                    <a href="">HAIR MASKS</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/hair_care/Thickning_Spray.jpg" alt="">
+                    <a href="">HAIR THICKENING SPRAY</a>
+                </div>
+            </div>
+        </div>
+        <div class="images-gallery">
+            <div class="col-1">
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9732_hair_cleanser_bhringraj___shikakai_200ml_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">HAIR CLEANSER</P>
+                        <P class="p-type">Reduces Hair Fall</P>
+                        <p class="p-size">2 Sizes Available</p>
+                       <b class="p-cost">₹1,795.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9733_hair_cleanser_japapatti___brahmi_200ml_1.png" alt="">
+                    </div>
+                    <div class="content">
+                        <p class="p-name">AYURVEDIC HEAD MASSAGE OIL</p>
+                        <p class="p-type">Improves Texture & Volume</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,250.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9750_intensive_hair_repair_masque_japapatti___brahmi_200g_1_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">HAIR GROWTH SERUM</P>
+                        <P class="p-type">Root treatment to Hair Growth</P>
+                        <p class="p-size">2 Sizes Available</p>
+                       <b class="p-cost">₹1,580.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9726_ayurvedic_herb_enriched_head_massage_oil_bhringraj_200ml_1.png" alt="">
+                    </div>
+                    <div class="content">
+                        <p class="p-name">HAIR CLEANSER</p>
+                        <p class="p-type">Reduces Hair Fall</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹2,250.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9727-head-massage-oil-japapatti-200ml_front.png" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">HAIR CLEANSER</P>
+                        <P class="p-type">Reduces Hair Fall</P>
+                        <p class="p-size">2 Sizes Available</p>
+                       <b class="p-cost">₹1,799.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <div class="col-2">
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9735_hair_conditioner_bhringraj___shikakai_200ml_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">HAIR CLEANSER JAPAPATTI</p>
+                        <p class="p-type">Repairs Dry,Damaged Hair</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,209.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9736_hair_conditioner_japapatti___brahmi_200ml_1_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">HAIR CONDITIONER SHIKAKAI</p>
+                        <p class="p-type">Reduces Dandruff</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹3,600.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/9737_Hair_Conditioner_Amla_Honey__Mulethi.jpg" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">PRE-SHAMPOO MASQUE JAPAPATTI</p>
+                        <p class="p-type">Intense Repair Treatment</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,250.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/21324_Keshanta_Advanced_Hair_Growth_Serum.jpg" alt="">
+                     </div>
+                        <div class="content">
+                        <p class="p-name">HAIR CONDITIONER SHIKAKAI</p>
+                        <p class="p-type">Reduces Hair Fall & Dandruff</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹250.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/1/7/17018_intensive_hair_repair_masque_japapatti___brahmi_100g_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">HAIR CONDITIONER SHIKAKAI</p>
+                        <p class="p-type">Reduces Hair Fall</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹3,000.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+
+                            <button>Buy Now</button>
+                        </div>
+                       </div>
+                </div>
+            </div>
+            <div class="col-3">
+            <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9784_baby_head_massage_oil_dasapushpadi_200ml_1.png" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">PRE-SHAMPOO MASQUE BRAHMI</P>
+                        <P class="p-type">Intense Repair Treatment </P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,990.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                       <button class="add-to-bag">Add to Bag</button>
+
+                            <button>Buy Now</button>
+                        </div>
+                     </div>
+                </div>
+            <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/1080_Hair_Thickening_Spray_Bhringraj_Shikakai_50ml_moodshot_9_50ml.jpg" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">HAIR CONDITIONER BRAHMI</P>
+                        <P class="p-type">Reduces Dry,Damaged Hair Fall</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,560.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                     </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9744_hair_cleanser_bhringraj___shikakai_50ml_1.png" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">BABY HEAD MASSAGE OIL</P>
+                        <P class="p-type">Hypoallergenic & 100% Natural</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,450.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                     </div>
+                     </div>
+                     <div class="i">
+                        <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9745_travel_size_hair_conditioner_bhringraj___shikakai_50ml_1.png" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">HAIR CLEANSER AMLA</P>
+                        <P class="p-type">Reduces Hair Fall & Dandruff</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹550.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                     </div>
+                    </div>
+                      <div class="i">
+                        <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9748_hair_cleanser_amla__honey___mulethi_50ml_1.png" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">HAIR CLEANSER JAPAPATTI</P>
+                        <P class="p-type">Reduces Hair Fall & Dandruff</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹550.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                     </div>
+                   </div>
+                   </div>      
+        </div>
+    </div>
+</body>
+</html>

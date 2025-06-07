@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men</title>
+    <link rel="stylesheet" href="men.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const heartIcons = document.querySelectorAll('.fa-heart-o, .fa-heart');
+  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  
+  heartIcons.forEach(icon => {
+    const productElement = icon.closest('.i');
+    const productName = productElement.querySelector('.p-name').innerText;
+
+    const isLiked = wishlist.some(item => item.name === productName);
+    if (isLiked) {
+      icon.classList.remove('fa-heart-o');
+      icon.classList.add('fa-heart', 'liked');
+    } else {
+      icon.classList.remove('fa-heart', 'liked');
+      icon.classList.add('fa-heart-o');
+    }
+  });
+
+  heartIcons.forEach(icon => {
+    icon.addEventListener('click', function () {
+      const productElement = this.closest('.i');
+      const productName = productElement.querySelector('.p-name').innerText;
+      const productType = productElement.querySelector('.p-type').innerText;
+      const productSize = productElement.querySelector('.p-size').innerText;
+      const productCost = productElement.querySelector('.p-cost').innerText;
+      const productImage = productElement.querySelector('img').src;
+
+      const isLiked = this.classList.contains('liked');
+
+      if (!isLiked) {
+        wishlist.push({
+          name: productName,
+          type: productType,
+          size: productSize,
+          cost: productCost,
+          image: productImage
+        });
+        this.classList.remove('fa-heart-o');
+        this.classList.add('fa-heart', 'liked');
+      } else {
+        wishlist = wishlist.filter(item => item.name !== productName);
+        this.classList.remove('fa-heart', 'liked');
+        this.classList.add('fa-heart-o');
+      }
+
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    });
+  });
+
+  let bagItems = JSON.parse(localStorage.getItem('bag')) || [];
+  const bagButtons = document.querySelectorAll('.add-to-bag');
+
+  bagButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const productElement = this.closest('.i');
+      const productName = productElement.querySelector('.p-name').innerText;
+      const productType = productElement.querySelector('.p-type')?.innerText || '';
+      const productSize = productElement.querySelector('.p-size')?.innerText || '';
+      const productCost = productElement.querySelector('.p-cost').innerText;
+      const productImage = productElement.querySelector('img').src;
+
+      const alreadyInBag = bagItems.some(item => item.name === productName);
+      if (!alreadyInBag) {
+        bagItems.push({
+          name: productName,
+          type: productType,
+          size: productSize,
+          cost: productCost,
+          image: productImage
+        });
+        localStorage.setItem('bag', JSON.stringify(bagItems));
+        alert(`${productName} added to bag!`);
+      } else {
+        alert(`${productName} is already in your bag.`);
+      }
+    });
+  });
+});
+</script>
+</head>
+<body>
+    <div class="main">
+        <div class="top">
+            <p>MEN'S CARE</p>
+        </div>
+        <div class="discover">
+            <p>Discover Our Men's care Range</p>
+            <div class="images">
+                <div>
+                    <img src="D:\pace-project\organic products\d6\men.jpeg" alt="">
+                    <a href="">FACE CARE</a>
+                </div>
+                <div>
+                    <img src="D:\pace-project\organic products\d6\men body.jpeg" alt="">
+                    <a href="">BATH AND BODY CARE</a>
+                </div>
+                <div>
+                    <img src="D:\pace-project\organic products\d6\men hair.jpeg" alt="">
+                    <a href="">HAIR CARE</a>
+                </div>
+                <div>
+                    <img src="D:\pace-project\organic products\d6\men shav.jpeg" alt="">
+                    <a href="">SHAVING AND GROMMING</a>
+                </div>
+            </div>
+        </div>
+        <div class="images-gallery">
+            <div class="col-1">
+                <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\mimg1.jpg" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">ESSENTIALS FOR HIM</P>
+                        <P class="p-type">Miniature grooming Essentials</P>
+                        <p class="p-size">100ml</p>
+                        <b class="p-cost">₹2,200.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                <div class="img">
+                        <img src="D:\pace-project\organic products\d6\mimg4.jpg" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">FACIAL CLEANSER</P>
+                        <P class="p-type">Removes excess Sebum</P>
+                        <p class="p-size">130ml</p>
+                        <b class="p-cost">₹1,275</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\mimg.jpg" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">GENTEL MENS GIFT BOX</P>
+                        <P class="p-type">classic grooming Essential</P>
+                        <b class="p-cost">₹5,570</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\ming5.jpg" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">FACIAL MOISTURE</P>
+                        <P class="p-type">Hydrates and protects skin</P>
+                        <p class="p-size">130ml</p>
+                        <b class="p-cost">₹1,275.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\mimg11.jpg" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">AFTER SHAVE SPRAY ALOVERA</p>
+                        <p class="p-type">Cooling and refreshing</p>
+                        <p class="p-size">100ml</p>
+                        <b class="p-cost">₹1,195</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\ming10.jpg" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">COOLING BODY MIST MORGA</p>
+                        <p class="p-type">sumptuous,Scented ,SLS-free</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,550.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\mimg12.jpg" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">GROOMING BREAD OIL</p>
+                        <p class="p-type">Nourishes & soften breed</p>
+                        <p class="p-size">50ml</p>
+                        <b class="p-cost">₹1,575.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\mimg13.jpg" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">AFTER BATH OIL OUGHT </p>
+                        <p class="p-type">Scented moisture cleaner</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹775</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-3">
+                <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\mimg17.jpg" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">SHEER SUNSCREAM</P>
+                        <P class="p-type">sumptuous,Scented ,SLS-free</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,550.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\mimg20.jpg" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">ULTRA-RICH BODY MILK OUGHT</P>
+                        <P class="p-type">quick absorbing & moisture</P>
+                        <p class="p-size">200ml</p>
+                        <b class="p-cost">₹2,095.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\mimg18.jpg" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">PRE-SHAMPOO MASQUE</P>
+                        <P class="p-type">intense Repair tretment</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,350.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="D:\pace-project\organic products\d6\mimg16.jpg" alt="">
+                        
+                    </div>
+                    <div class="content">
+                        <P class="p-name">MOISTURING HAND WASH</P>
+                        <P class="p-type">Purifying and cleaning</P>
+                        <p class="p-size">50ml</p>
+                        <b class="p-cost">₹295.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

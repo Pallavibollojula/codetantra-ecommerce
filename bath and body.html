@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bath & Body</title>
+    <link rel="stylesheet" href="bath and body.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const heartIcons = document.querySelectorAll('.fa-heart-o, .fa-heart');
+  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  
+  heartIcons.forEach(icon => {
+    const productElement = icon.closest('.i');
+    const productName = productElement.querySelector('.p-name').innerText;
+
+    const isLiked = wishlist.some(item => item.name === productName);
+    if (isLiked) {
+      icon.classList.remove('fa-heart-o');
+      icon.classList.add('fa-heart', 'liked');
+    } else {
+      icon.classList.remove('fa-heart', 'liked');
+      icon.classList.add('fa-heart-o');
+    }
+  });
+
+  heartIcons.forEach(icon => {
+    icon.addEventListener('click', function () {
+      const productElement = this.closest('.i');
+      const productName = productElement.querySelector('.p-name').innerText;
+      const productType = productElement.querySelector('.p-type').innerText;
+      const productSize = productElement.querySelector('.p-size').innerText;
+      const productCost = productElement.querySelector('.p-cost').innerText;
+      const productImage = productElement.querySelector('img').src;
+
+      const isLiked = this.classList.contains('liked');
+
+      if (!isLiked) {
+        wishlist.push({
+          name: productName,
+          type: productType,
+          size: productSize,
+          cost: productCost,
+          image: productImage
+        });
+        this.classList.remove('fa-heart-o');
+        this.classList.add('fa-heart', 'liked');
+      } else {
+        wishlist = wishlist.filter(item => item.name !== productName);
+        this.classList.remove('fa-heart', 'liked');
+        this.classList.add('fa-heart-o');
+      }
+
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    });
+  });
+
+  let bagItems = JSON.parse(localStorage.getItem('bag')) || [];
+  const bagButtons = document.querySelectorAll('.add-to-bag');
+
+  bagButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const productElement = this.closest('.i');
+      const productName = productElement.querySelector('.p-name').innerText;
+      const productType = productElement.querySelector('.p-type')?.innerText || '';
+      const productSize = productElement.querySelector('.p-size')?.innerText || '';
+      const productCost = productElement.querySelector('.p-cost').innerText;
+      const productImage = productElement.querySelector('img').src;
+
+      const alreadyInBag = bagItems.some(item => item.name === productName);
+      if (!alreadyInBag) {
+        bagItems.push({
+          name: productName,
+          type: productType,
+          size: productSize,
+          cost: productCost,
+          image: productImage
+        });
+        localStorage.setItem('bag', JSON.stringify(bagItems));
+        alert(`${productName} added to bag!`);
+      } else {
+        alert(`${productName} is already in your bag.`);
+      }
+    });
+  });
+});
+</script>
+<body>
+    <div class="main">
+        <div class="top">
+            <p>Body Care</p>
+        </div>
+        <div class="discover">
+            <p>Discover Our bath and body care Range</p>
+            <div class="images">
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/body_care/Body_Mists.jpg" alt="">
+                    <a href="">BODY MISTS</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/body_care/Body_Wash.jpg" alt="">
+                    <a href="">BODY WASH</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/body_care/Handmade_Soaps.jpg" alt="">
+                    <a href="">BATH & BODY OILS</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/body_care/Body_Creams_Lotions.jpg" alt="">
+                    <a href="">SCRUBS AND POLISHERS</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/body_care/Body_Scrubs_Polishers.jpg" alt="">
+                    <a href="">CREAMS AND LOSHANS</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/body_care/Dusting_Powders.jpg" alt="">
+                    <a href="">DUSTING POWDERS</a>
+                </div>
+                <div>
+                    <img src="https://img.forestessentialsindia.com/pub/media/category_navigation/body_care/Hand_Care.jpg" alt="">
+                    <a href="">HAND CARE</a>
+                </div>
+            </div>
+        </div>
+        <div class="images-gallery">
+            <div class="col-1">
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/2/2/22036_silkening_shower_wash_mogra_200ml_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">SLIKENING SHOWER WASH</P>
+                        <P class="p-type">Delicately Scented SLS-free</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹475</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/2/2/22035_ultra_rich_body_milk_mogra_50ml_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">LIME BODY LOSHAN</P>
+                        <P class="p-type">Delicately Scented SLS-free</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,650</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/2/2/22052_sheer_sunscreen_body_spray_spf50_pa__130ml_1_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">COOLING BODY MIST MORGA</P>
+                        <P class="p-type">Hydrates & Scents the Skin</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,550.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/2/2/22034_ultra_rich_body_milk_mogra_200ml_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">COOLING BODY MIST MORGA LIME</P>
+                        <P class="p-type">Hydrates & Scents the Skin</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,550.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/2/2/22031_radiance_renewal_body_cream_mogra_100g_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">BODY MIST LIME OUGHT</p>
+                        <p class="p-type">sumptuous,Scented ,SLS-free</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹3,250.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                       <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/2/2/22030_after_bath_oil_mogra_50ml_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">COOLING BODY MIST MORGA</p>
+                        <p class="p-type">sumptuous,Scented ,SLS-free</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹3,250.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/1/0/1094_body_mist_nargis_50ml_front_1_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">SLIKENING WASH MORGA</p>
+                        <p class="p-type">sumptuous,Scented ,SLS-free</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹3,250.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/2/1/21522_cooling_body_mist_mogra_50ml_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">COOLING BODY MIST MORGA</p>
+                        <p class="p-type">sumptuous,Scented ,SLS-free</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,550.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/2/1/21521_cooling_body_mist_mogra_130ml_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">SHOWER WASH MASHBRRO HONEY</p>
+                        <p class="p-type">sumptuous,Scented ,SLS-free</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,575.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/2/1/21520_luxury_sugar_soap_mogra_100g_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">SHOWER WASH ICED LIME</p>
+                        <p class="p-type">sumptuous,Scented ,SLS-free</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹3,250.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/8/9/8987_silkening_shower_wash_indian_rose_absolute_200ml_1.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">BODY MIST LIME SAFFRON & OUDH</p>
+                        <p class="p-type">sumptuous,Scented ,SLS-free</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹3,250.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/8/9/8986_shower_wash_pomegranate_lime_200ml_front_copy_2.png" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">BODY MIST LIME SAFFRON & OUDH</p>
+                        <p class="p-type">sumptuous,Scented ,SLS-free</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹3,250.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/8/9/8989_shower_wash_honey_vanilla_200ml_front_copy_2.png" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">SHEER SUNSCREAM</P>
+                        <P class="p-type">sumptuous,Scented ,SLS-free</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,550.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/8/9/8990_shower_wash_oudh_green_tea_200ml_front_copy_2.png" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">BODYMIST OUGHT & GREEN TEA</P>
+                        <P class="p-type">sumptuous,Scented ,SLS-free</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,350.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/9/7/9701_shower_wash_soundarya_200ml_front_copy_2.png" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">BODY MIST NARGIS</P>
+                        <P class="p-type">sumptuous,Scented ,SLS-free</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,350.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/1/5/15601_shower_wash_nargis_200ml_front.png" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">BODY MIST SANDALWOOD</P>
+                        <P class="p-type">sumptuous,Scented ,SLS-free</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,350.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/21395_Silkening_Shower_Wash_Lime_Saffron_Oudh.jpg" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">BODY MIST ICED  LIME</P>
+                        <P class="p-type">sumptuous,Scented ,SLS-free</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,350.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                            <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="i">
+                    <div class="img">
+                        <img src="https://img.forestessentialsindia.com/pub/media/catalog/product/cache/0ee050c3ffc3555709b9bb6062f4d7e9/1/0/1082_body_mist_pomegnate_kerala_lime_50ml_front_copy.png" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">SHOWER WASH LIME SAFRON</P>
+                        <P class="p-type">sumptuous,Scented ,SLS-free</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,650</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

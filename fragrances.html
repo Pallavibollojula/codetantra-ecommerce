@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fragrance</title>
+    <link rel="stylesheet" href="fragrances.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+ <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const heartIcons = document.querySelectorAll('.fa-heart-o, .fa-heart');
+  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  
+  heartIcons.forEach(icon => {
+    const productElement = icon.closest('.i');
+    const productName = productElement.querySelector('.p-name').innerText;
+
+    const isLiked = wishlist.some(item => item.name === productName);
+    if (isLiked) {
+      icon.classList.remove('fa-heart-o');
+      icon.classList.add('fa-heart', 'liked');
+    } else {
+      icon.classList.remove('fa-heart', 'liked');
+      icon.classList.add('fa-heart-o');
+    }
+  });
+
+  heartIcons.forEach(icon => {
+    icon.addEventListener('click', function () {
+      const productElement = this.closest('.i');
+      const productName = productElement.querySelector('.p-name').innerText;
+      const productType = productElement.querySelector('.p-type').innerText;
+      const productSize = productElement.querySelector('.p-size').innerText;
+      const productCost = productElement.querySelector('.p-cost').innerText;
+      const productImage = productElement.querySelector('img').src;
+
+      const isLiked = this.classList.contains('liked');
+
+      if (!isLiked) {
+        wishlist.push({
+          name: productName,
+          type: productType,
+          size: productSize,
+          cost: productCost,
+          image: productImage
+        });
+        this.classList.remove('fa-heart-o');
+        this.classList.add('fa-heart', 'liked');
+      } else {
+        wishlist = wishlist.filter(item => item.name !== productName);
+        this.classList.remove('fa-heart', 'liked');
+        this.classList.add('fa-heart-o');
+      }
+
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    });
+  });
+
+  let bagItems = JSON.parse(localStorage.getItem('bag')) || [];
+  const bagButtons = document.querySelectorAll('.add-to-bag');
+
+  bagButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const productElement = this.closest('.i');
+      const productName = productElement.querySelector('.p-name').innerText;
+      const productType = productElement.querySelector('.p-type')?.innerText || '';
+      const productSize = productElement.querySelector('.p-size')?.innerText || '';
+      const productCost = productElement.querySelector('.p-cost').innerText;
+      const productImage = productElement.querySelector('img').src;
+
+      const alreadyInBag = bagItems.some(item => item.name === productName);
+      if (!alreadyInBag) {
+        bagItems.push({
+          name: productName,
+          type: productType,
+          size: productSize,
+          cost: productCost,
+          image: productImage
+        });
+        localStorage.setItem('bag', JSON.stringify(bagItems));
+        alert(`${productName} added to bag!`);
+      } else {
+        alert(`${productName} is already in your bag.`);
+      }
+    });
+  });
+});
+</script>
+</head>
+<body>
+    <div class="main">
+        <div class="top">
+            <p>Fragrances</p>
+        </div>
+        <div class="discover">
+            <p>Discover Our Fragrance Range</p>
+            <div class="images">
+                <div>
+                    <img src="D:\pace-project\images\Body_Mists.avif" alt="">
+                    <a href="">BODY MISTS</a>
+                </div>
+                <div>
+                    <img src="D:\pace-project\images\Intense_Perfumes.avif" alt="">
+                    <a href="">INTENSE PERFUMES</a>
+                </div>
+                <div>
+                    <img src="D:\pace-project\images\Solid_Perfumes.avif" alt="">
+                    <a href="">SOLID PERFUMES</a>
+                </div>
+                <div>
+                    <img src="D:\pace-project\images\Natural_Deodorants.avif" alt="">
+                    <a href="">NATURAL DEODORANTS</a>
+                </div>
+            </div>
+        </div>
+        <div class="images-gallery">
+            <div class="col-1">
+                <div class="i">
+                    <div class="img">
+                        <img src="https://www.houseofem5.com/cdn/shop/files/Afgano-556478_800x.jpg?v=1727089982" alt="">
+                    </div>
+                        <div class="content">
+                        <P class="p-name">AFGANO PERFUME</P>
+                        <P class="p-type">Hydrates & Scents the Skin</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹699.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+
+                    </div>
+                </div>
+                 <div class="i">
+                    <div class="img">
+                        <img src="https://rukminim2.flixcart.com/image/750/900/xif0q/deodorant/p/c/d/135-intimate-body-mist-with-long-lasting-fragrance-for-gents-original-imah398hfshjbtyf.jpeg?q=20&crop=false" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">VANESA FRESH INTENSIVE PERFUME</p>
+                        <p class="p-type">Hydrates & Scents the Skin</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹399.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                         <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="i">
+                    <div class="img">
+                        <img src="https://www.themancompany.com/cdn/shop/files/5_e44b52ad-2364-4681-b0a3-c63cd2d3ce77.jpg?v=1698237592" alt="">
+                    </div>
+                        <div class="content">
+                        <p class="p-name">BODY SPRAY</p>
+                        <p class="p-type">Hydrates & Scents the Skin</p>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹999.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                           <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="i">
+                    <div class="img">
+                        <img src="https://apisap.fabindia.com/medias/8907833005856-1.jpg?context=bWFzdGVyfGltYWdlc3w5NzI2MHxpbWFnZS9qcGVnfGFEa3lMMmhoWlM4NU1qRXdNall6TVRReU5ETXdMemc1TURjNE16TXdNRFU0TlRaZk1TNXFjR2N8NTc1ZDJjNzdlZWYzYjU0YzczMmFkYzhjYzc0M2I0YzRmNjUxMWQ4ODAzNDM5YzdhOTMxN2ZhY2M3ZGQ3YWNkZA" alt="">
+                    </div>
+                    <div class="content">
+                        <P class="p-name">JASMINE BODY SPRAY</P>
+                        <P class="p-type">Hydrates & Scents the Skin</P>
+                        <p class="p-size">2 Sizes Available</p>
+                        <b class="p-cost">₹1,399.00</b> 
+                        <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <i class="fa fa-heart-o"></i>
+                        </div>
+                         <div class="button-group">
+                          <button class="add-to-bag">Add to Bag</button>
+                            <button>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
